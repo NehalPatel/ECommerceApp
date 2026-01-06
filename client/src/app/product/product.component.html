@@ -1,0 +1,28 @@
+<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">Name:</label>
+        <input id="name" type="text" formControlName="name">
+        <div class="error-message" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">
+            Name is required.
+        </div>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input id="price" type="number" formControlName="price">
+        <div class="error-message" *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+            Price is required.
+        </div>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+        <div class="error-message"
+            *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+            Description is required.
+        </div>
+    </div>
+    <button type="submit" [disabled]="productForm.invalid">Submit</button>
+</form>
