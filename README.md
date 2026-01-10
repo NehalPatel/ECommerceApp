@@ -7,18 +7,18 @@ Steps to create new ECommerceApp using Express and Angular
 **Step 2: Create new folder "server" inside ECommerceApp folder**
 
 **Step 3: Initialize new Node.js project inside "server" folder**
-```
+```shell
 cd /server
 npm init -y
 ```
 **Step 4: Install required dependencies for Express server**
-```
+```shell
 npm install express body-parser cors dotenv
 npm install nodemon --save-dev
 ```
 **Step 5: Create new file "server.js" inside "server" folder**
 **Step 6: Set up basic Express server in "server.js"**
-```
+```javascript
 const express = require('express');
 const app = express();
 app.use(app.urlencoded({ extended: true }));
@@ -34,37 +34,37 @@ app.listen(port, () => {
 });
 ```
 **Step 6: Add script to start server using nodemon in "package.json"**
-```
+```javascript
 "scripts": {
   "start": "nodemon server.js",
   "test": "echo \"Error: no test specified\" && exit 1"
 }
 ```
 **Step 7: Start the server**
-```
+```shell
 npm start
 ```
 
 ## Create Client using Angular 17
 **Step 1: Install Angular CLI globally**
-```
+```shell
 npm install -g @angular/cli
 ```
 **Step 2: Create new Angular project**
-```
+```shell
 ng new client
 ```
 **Step 3: Navigate to client folder**
-```
+```shell
 cd client
 ```
 **Step 4: Start the Angular development server**
-```
+```shell
 ng serve
 ```
 **Step 5: Open browser and navigate to "http://localhost:4200" to see the Angular application running.**
 **Step 6: Remove default Angular code in "src/app/app.component.html"**
-```
+```html
 <!-- src/app/app.component.html -->
 <h1>
   Welcome to ECommerceApp!
@@ -72,11 +72,11 @@ ng serve
 ```
 
 **Step 7: Create new component "product"**
-```
+```shell
 ng generate component product
 ```
 **Step 8: Add product component to "src/app/app.module.ts"**
-```
+```javascript
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductComponent } from "./product/product.component";
@@ -93,7 +93,7 @@ export class AppComponent {
 }
 ```
 **Step 9: Add product component to "src/app/app.component.html"**
-```
+```html
 <!-- src/app/app.component.html -->
 <h1>
   Welcome to {{ title }}!
@@ -103,7 +103,7 @@ export class AppComponent {
 <router-outlet />
 ```
 **Step 10: Add product component to "src/app/product/product.component.ts"**
-```
+```javascript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -136,7 +136,7 @@ export class ProductComponent {
 ```
 
 **Step 11: Add product component to "src/app/product/product.component.html"**
-```
+```html
 <!-- src/app/product/product.component.html -->
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div>
@@ -156,7 +156,7 @@ export class ProductComponent {
 ```
 
 **Step 12: Add product component to "src/app/product/product.component.css"**
-```
+```css
 form {
     display: flex;
     flex-direction: column;
@@ -237,7 +237,7 @@ button:disabled {
 ```
 
 **Step 13: Send product data to server in "src/app/product/product.component.ts" onSubmit() function.**
-```
+```javascript
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 ...
 @Component({
@@ -277,18 +277,18 @@ For example, if you installed MongoDB in "C:\Program Files\MongoDB\Server\8.2", 
 ## Create API in Node.js and Express (SERVER)
 
 **Step 1: Install Mongoose package and add MongoDB URL in .env file**
-```
+```shell
 npm install mongoose
 ```
 
 Add MongoDB URL in .env file
-```
+```shell
 # Database connection
 MONGO_URI=mongodb://localhost:27017/ecommerce
 ```
 
 **Step 2: Create Model "Product" in "src/app/product/product.model.js"**
-```
+```javascript
 import { Schema, model } from 'mongoose';
 
 const productSchema = new Schema({
@@ -301,7 +301,7 @@ export const Product = model('Product', productSchema);
 ```
 
 **Step 3: Create Controller file for Product routes in "src/app/product/product.controller.js"**
-```
+```javascript
 import { Product } from '../model/product.model.js';
 
 // Create a new product
@@ -371,7 +371,7 @@ export const deleteProduct = async (req, res) => {
 
 
 **Step 4: Create Route file for Product routes in "src/app/product/product.route.js"**
-```
+```javascript
 import express from 'express';
 import { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } from '../controller/product.controller.js';
 
@@ -387,7 +387,7 @@ export default router;
 ```
 
 **Step 5: Connect MongoDB and add routes in "src/server.js"**
-```
+```javascript
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -420,7 +420,7 @@ app.listen(port, () => {
 
 ## Create Product Form in Angular (CLIENT)
 Step 1: Create a new component "product-form" in "src/app/product-form/product-form.component.ts"
-```
+```javascript
 import { Component } from '@angular/core';
 
 @Component({
@@ -439,12 +439,12 @@ export class ProductFormComponent {
 
 ## Connect Angular Form with API (CLIENT)
 Step 1: Create Environment file "src/environments/environment.ts" using ng command
-```
+```shell
 cd /client
 ng generate environment
 ```
 "src/environments/environment.ts"
-```
+```shell
 export const environment = {
   production: true,
   apiUrl: 'http://localhost:3000/api/products'
@@ -452,7 +452,7 @@ export const environment = {
 ```
 
 Step 2 : Import environment in "src/app/product/product.component.ts"
-```
+```javascript
 import { environment } from '../../environments/environment';
 ...
 onSubmit() {
@@ -466,7 +466,7 @@ onSubmit() {
 ```
 
 Step 3: Add Form Validation in "src/app/product/product.component.html"
-```
+```html
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div>
         <label for="name">Name:</label>
@@ -494,7 +494,7 @@ Step 3: Add Form Validation in "src/app/product/product.component.html"
 </form>
 ```
 To use *ngIf directive for error messages, import CommonModule in "src/app/product/product.component.ts"
-```
+```javascript
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -507,12 +507,12 @@ import { CommonModule } from '@angular/common';
 ```
 
 Step 4: Add Success/Error Messages in "src/app/product/product.component.html"
-```
+```javascript
 <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 ```
 
-```
+```javascript
 export class ProductComponent {
 
   successMessage: string = '';
